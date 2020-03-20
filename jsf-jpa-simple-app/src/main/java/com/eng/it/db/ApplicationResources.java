@@ -14,10 +14,8 @@ public class ApplicationResources {
     @Produces
     public EntityManager getEntityManager() {
         if(entityManager == null) {
-        	System.out.println("da li dodje ovde");
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("primary");
             entityManager = emf.createEntityManager();
-            System.out.println("entityManager: " + entityManager);
         }
         return entityManager;
     }
