@@ -1,29 +1,39 @@
 package com.eng.it.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "student")
-public class Student {
+public class Student implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4791198130484930386L;
 
 	@Id
-	@Column(name = "id", updatable = false, nullable = false)
+	@Column(name = "ID", updatable = false, nullable = false)
 	private long id;
-	@Column(name = "first_name", nullable = false)
+	@Column(name = "FIRST_NAME", nullable = false)
 	private String firstName;
-	@Column(name = "last_name", nullable = false)
+	@Column(name = "LAST_NAME", nullable = false)
 	private String lastName;
-	@Column(name = "e_mail", nullable = false, unique = true)
+	@Column(name = "E_MAIL", nullable = false, unique = true)
 	private String eMail;
-	@Column(name = "user_name", nullable = false, unique = true)
+	@Column(name = "USER_NAME", nullable = false, unique = true)
 	private String userName;
-	@Column(name = "password", nullable = false, unique = true)
+	@Column(name = "PASSWORD", nullable = false, unique = true)
 	private String password;
-	@Column(name = "city", nullable = false)
-	private String city;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ADDRESS_ID")
+	private Address address;
 
 	public long getId() {
 		return id;
@@ -73,33 +83,12 @@ public class Student {
 		this.password = password;
 	}
 
-	public String getCity() {
-		return city;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Student [id=");
-		builder.append(id);
-		builder.append(", firstName=");
-		builder.append(firstName);
-		builder.append(", lastName=");
-		builder.append(lastName);
-		builder.append(", eMail=");
-		builder.append(eMail);
-		builder.append(", userName=");
-		builder.append(userName);
-		builder.append(", password=");
-		builder.append(password);
-		builder.append(", city=");
-		builder.append(city);
-		builder.append("]");
-		return builder.toString();
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 }
