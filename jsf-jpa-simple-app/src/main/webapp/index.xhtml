@@ -12,14 +12,18 @@
 	<h:form>
 		<p:messages id="messages" />
 		<p:panelGrid columns="2">
-			<p:outputLabel for="nameUser" value="Name User:" />
-			<p:inputText id="nameUser" value="#{userLoginView.user.nameUser}" />
+			<p:outputLabel for="userName" value="Name User:" />
+			<p:inputText id="userName" value="#{registrationView.student.userName}" />
 
 			<p:outputLabel for="password" value="Password:" />
-			<p:password id="password" value="#{userLoginView.user.password}" />
+			<p:password id="password" value="#{registrationView.student.password}" />
 
-			<p:commandButton value="Enviar" icon="ui-icon-star"
-				action="#{userLoginView.send}" ajax="false">
+			<p:commandButton value="Commit" icon="ui-icon-star"
+				action="#{registrationView.login()}" ajax="false">
+			</p:commandButton>
+			
+			<p:commandButton value="Registration" icon="ui-icon-star"
+				action="#{registrationView.registration()}" ajax="false">
 			</p:commandButton>
 
 		</p:panelGrid>
