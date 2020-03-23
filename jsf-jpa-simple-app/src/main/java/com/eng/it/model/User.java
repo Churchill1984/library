@@ -59,6 +59,7 @@ public class User {
 
 	@Override
 	public boolean equals(Object obj) {
+		System.out.println("Neke izmene, za probu");
 		if (this == obj)
 			return true;
 		if (obj == null)
