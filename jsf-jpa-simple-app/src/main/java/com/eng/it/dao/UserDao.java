@@ -1,9 +1,5 @@
 package com.eng.it.dao;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Default;
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
@@ -11,30 +7,32 @@ import javax.persistence.RollbackException;
 
 import com.eng.it.model.User;
 
-@RequestScoped
-@Named
 public class UserDao {
 
-	@Inject
 	private EntityManager em;
 
 	public User getUser(String nameUser, String password) {
+
 		String query = "SELECT u from User u where u.nameUser = :name and u.password = :password";
 
 		if (em != null) {
 			try {
-				User user = (User) em.createQuery(query).setParameter("name", nameUser)
+				return (User) em.createQuery(query, User.class).setParameter("name", nameUser)
 						.setParameter("password", password).getSingleResult();
-
-				return user;
 			} catch (NoResultException e) {
 				return null;
 			}
 		} else {
-			System.out.println("entity manager je null, ne znam zasto...");
 			return null;
 		}
 
+	}
+
+	/**
+	 * @param em the em to set
+	 */
+	public void setEm(EntityManager em) {
+		this.em = em;
 	}
 
 	public boolean insertUser(User user) {
