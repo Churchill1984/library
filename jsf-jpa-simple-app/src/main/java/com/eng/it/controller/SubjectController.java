@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -26,6 +27,10 @@ public class SubjectController {
 	public void init() {
 		subjectDao = new SubjectDao();
 		subjectDao.setEntityManager(entityManager);
+		subjectsList = subjectDao.getAllSubjects();
+	}
+	
+    public void getList() {
 		System.out.println("Ovde ulazi svaki put kada dodje na ovu stranicu");
 		subjectsList = subjectDao.getAllSubjects();
 	}
