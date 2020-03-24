@@ -23,11 +23,6 @@
 		<!-- The datasource is deployed as WEB-INF/test-ds.xml, you can find it 
 			in the source at src/test/resources/test-ds.xml -->
 		<jta-data-source>java:jboss/datasources/SimpleJsfJpaDS</jta-data-source>
-
-		<class>com.eng.it.model.Address</class>
-		<class>com.eng.it.model.Person</class>
-		<class>com.eng.it.model.User</class>
-		<class>com.eng.it.model.Role</class>
 		
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 
