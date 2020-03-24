@@ -3,7 +3,7 @@ package com.eng.it.controller;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -12,7 +12,7 @@ import com.eng.it.dao.SubjectDao;
 import com.eng.it.model.Subject;
 
 @Named
-@ApplicationScoped
+@RequestScoped
 public class SubjectController {
 
 	@Inject
@@ -26,7 +26,6 @@ public class SubjectController {
 	public void init() {
 		subjectDao = new SubjectDao();
 		subjectDao.setEntityManager(entityManager);
-		System.out.println("Ovde ulazi svaki put kada dodje na ovu stranicu");
 		subjectsList = subjectDao.getAllSubjects();
 	}
 

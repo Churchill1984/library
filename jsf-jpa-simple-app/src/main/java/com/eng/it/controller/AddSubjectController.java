@@ -1,7 +1,7 @@
 package com.eng.it.controller;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -10,7 +10,7 @@ import com.eng.it.dao.SubjectDao;
 import com.eng.it.model.Subject;
 
 @Named
-@ApplicationScoped
+@RequestScoped
 public class AddSubjectController {
 
 	@Inject
