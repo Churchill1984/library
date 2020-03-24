@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -18,18 +20,19 @@ public class Address implements Serializable {
 	private static final long serialVersionUID = -4791198130484930386L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", updatable = false, nullable = false)
 	private long id;
-	@Column(name = "STREET", updatable = true, nullable = false)
+	@Column(name = "STREET", updatable = true)
 	private String street;
-	@Column(name = "CITY", updatable = true, nullable = false)
+	@Column(name = "CITY", updatable = true)
 	private String city;
-	@Column(name = "COUNTRY", updatable = true, nullable = false)
+	@Column(name = "COUNTRY", updatable = true)
 	private String country;
-	@Column(name = "POSTAL_CODE", updatable = true, nullable = false)
+	@Column(name = "POSTAL_CODE", updatable = true)
 	private int postalCode;
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="address")
-	private Student student;
+	private Person person;
 
 	public long getId() {
 		return id;
