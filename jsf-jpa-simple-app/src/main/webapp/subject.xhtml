@@ -16,8 +16,14 @@
 			<p:commandButton value="Add subject" icon="ui-icon-star"
 				action="#{subjectController.addSubject()}" ajax="false">
 			</p:commandButton>
+			
+			<br></br>
 
-			<p:dataTable var="subject" value="#{subjectController.subjectsList}">
+			<p:dataTable id="singleDT" var="subject"
+				value="#{subjectController.subjectsList}" selectionMode="single"
+				selection="#{subjectController.selectedSubject}"
+				rowKey="#{subject.id}">
+				<f:facet name="header">Subjects</f:facet>
 				<p:column headerText="Id">
 					<h:outputText value="#{subject.id}" />
 				</p:column>
@@ -29,12 +35,17 @@
 				<p:column headerText="ESPB">
 					<h:outputText value="#{subject.espb}" />
 				</p:column>
-
+				<f:facet name="footer">
+					<p:commandButton value="Update subject" icon="ui-icon-star"
+						action="#{subjectController.updateSubject()}" ajax="false">
+					</p:commandButton>
+					
+					<p:commandButton value="Delete subject" icon="ui-icon-star"
+						action="#{subjectController.deleteSubject()}" ajax="false">
+					</p:commandButton>
+				</f:facet>
 			</p:dataTable>
-
 		</p:panelGrid>
-
-
 	</h:form>
 </h:body>
 </html>

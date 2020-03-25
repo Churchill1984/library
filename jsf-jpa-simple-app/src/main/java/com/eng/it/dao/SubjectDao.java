@@ -23,7 +23,13 @@ public class SubjectDao {
 	}
 
 	public List<Subject> getAllSubjects() {
-		return entityManager.createQuery("SELECT s FROM Subject s", Subject.class).getResultList();
+		return entityManager.createQuery("SELECT s FROM Subject s ORDER BY s.id", Subject.class).getResultList();
+	}
+
+	public void delete(Subject selectedSubject) {
+		entityManager.getTransaction().begin();
+		entityManager.remove(selectedSubject);
+		entityManager.getTransaction().commit();
 	}
 
 }
