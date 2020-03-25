@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+</h:head>
+
+<h:body>
+    <h:form>
+        <p:panelGrid columns="1">
+
+ 
+
+            <p:commandButton value="Add Student" icon="ui-icon-star"
+                action="#{studentController.redirectToAddStudent()}" ajax="false">
+            </p:commandButton>
+            
+            <p:dataTable var="student" value="#{studentController.students}">
+                <p:column headerText="Id">
+                    <h:outputText value="#{student.id}" />
+                </p:column>
+                
+                <p:column headerText="First Name">
+                    <h:outputText value="#{student.firstName}" />
+                </p:column>
+                
+                <p:column headerText="Last Name">
+                    <h:outputText value="#{student.lastName}" />
+                </p:column>
+                
+                <p:column headerText="Email">
+                    <h:outputText value="#{student.email}" />
+                </p:column>
+                
+                <p:column headerText="ESPB">
+                    <h:outputText value="#{student.score}" />
+                </p:column>
+                
+            </p:dataTable>
+            
+        </p:panelGrid>
+    </h:form>
+</h:body>
+</html>
