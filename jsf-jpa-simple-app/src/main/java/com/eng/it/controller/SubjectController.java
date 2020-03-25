@@ -10,6 +10,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
+import org.primefaces.event.RowEditEvent;
+
 import com.eng.it.dao.SubjectDao;
 import com.eng.it.model.Subject;
 
@@ -71,4 +73,33 @@ public class SubjectController {
 		this.selectedSubject = selectedSubject;
 	}
 
+	public void onRowEdit(RowEditEvent<Subject> event) {
+		subjectDao.update(event.getObject());
+
+		FacesMessage msg = new FacesMessage("Subject Edited");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onRowDelite(Subject subject) {
+		subjectDao.delite(subject);
+		subjectsList.remove(subject);
+		FacesMessage msg = new FacesMessage("Subject deleted");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onRowCancel(RowEditEvent<Subject> event) {
+		FacesMessage msg = new FacesMessage("Subject Cancelled");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+//
+//	public void onCellEdit(CellEditEvent event) {
+//		Object oldValue = event.getOldValue();
+//		Object newValue = event.getNewValue();
+//
+//		if (newValue != null && !newValue.equals(oldValue)) {
+//			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed",
+//					"Old: " + oldValue + ", New:" + newValue);
+//			FacesContext.getCurrentInstance().addMessage(null, msg);
+//		}
+//	}
 }

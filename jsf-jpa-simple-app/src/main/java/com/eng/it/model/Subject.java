@@ -25,7 +25,7 @@ public class Subject implements Serializable {
 	@Column(name = "NAME", nullable = false, unique = true)
 	private String name;
 
-	@Column(name = "ESPB", nullable = false, unique = true)
+	@Column(name = "ESPB", nullable = false)
 	private int espb;
 
 	@Column(name = "ACTIVE")

@@ -9,42 +9,72 @@
 </h:head>
 
 <h:body>
-	<h:form>
-		<p:messages id="messages" />
+	<h:form id="form">
 		<p:panelGrid columns="1">
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:dataTable id="subjectsList" var="subject"
+				value="#{subjectController.subjectsList}" editable="true"
+				style="margin-bottom:20px">
+
+				<p:ajax event="rowEdit" listener="#{subjectController.onRowEdit}"
+					update=":form:msgs" />
+				<p:ajax event="rowEditCancel"
+					listener="#{subjectController.onRowCancel}" update=":form:msgs" />
+
+				<p:column headerText="Id">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{subject.id}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="modelInput" value="#{subject.id}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Name">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{subject.name}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{subject.name}" style="width:100%"
+								label="Name" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="espb">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{subject.espb}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{subject.espb}" style="width:100%"
+								label="espb" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column style="width:35px">
+					<f:facet name="header">Edit</f:facet>
+					<p:rowEditor />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">Action</f:facet>
+					<h:commandLink value="Delete"
+						action="#{subjectController.onRowDelite(subject)}" />
+				</p:column>
+			</p:dataTable>
+
+			<br></br>
 
 			<p:commandButton value="Add subject" icon="ui-icon-star"
 				action="#{subjectController.addSubject()}" ajax="false">
 			</p:commandButton>
-			
-			<br></br>
-
-			<p:dataTable id="singleDT" var="subject"
-				value="#{subjectController.subjectsList}" selectionMode="single"
-				selection="#{subjectController.selectedSubject}"
-				rowKey="#{subject.id}">
-				<f:facet name="header">Subjects</f:facet>
-				<p:column headerText="Id">
-					<h:outputText value="#{subject.id}" />
-				</p:column>
-
-				<p:column headerText="Name">
-					<h:outputText value="#{subject.name}" />
-				</p:column>
-
-				<p:column headerText="ESPB">
-					<h:outputText value="#{subject.espb}" />
-				</p:column>
-				<f:facet name="footer">
-					<p:commandButton value="Update subject" icon="ui-icon-star"
-						action="#{subjectController.updateSubject()}" ajax="false">
-					</p:commandButton>
-					
-					<p:commandButton value="Delete subject" icon="ui-icon-star"
-						action="#{subjectController.deleteSubject()}" ajax="false">
-					</p:commandButton>
-				</f:facet>
-			</p:dataTable>
 		</p:panelGrid>
 	</h:form>
 </h:body>

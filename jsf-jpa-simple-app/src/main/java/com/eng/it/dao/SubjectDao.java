@@ -32,4 +32,16 @@ public class SubjectDao {
 		entityManager.getTransaction().commit();
 	}
 
+	public void update(Subject subject) {
+		entityManager.getTransaction().begin();
+		entityManager.merge(subject);
+		entityManager.getTransaction().commit();
+	}
+
+	public void delite(Subject subject) {
+		entityManager.getTransaction().begin();
+		entityManager.remove(subject);
+		entityManager.getTransaction().commit();
+	}
+
 }
