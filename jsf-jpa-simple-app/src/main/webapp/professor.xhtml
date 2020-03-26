@@ -5,35 +5,84 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-
+	<h1>Professor</h1>
 </h:head>
 
 <h:body>
-	<h:form>
+	<h:form id="form">
 		<p:panelGrid columns="1">
 
-			<p:commandButton value="Add Professor" icon="ui-icon-star"
-				action="#{professorController.redirectToAddProfessor()}" ajax="false">
-			</p:commandButton>
+			<p:growl id="msgs" showDetail="true" />
+			<p:dataTable var="professor" editable="true"
+				value="#{professorController.professors}" style="margin-bottom:20px">
 
-			<p:dataTable var="professor" value="#{professorController.professors}">
+				<p:ajax event="rowEdit" listener="#{professorController.onRowEdit}"
+					update=":form:msgs" />
+				<p:ajax event="rowEditCancel"
+					listener="#{professorController.onRowCancel}" update=":form:msgs" />
+
 				<p:column headerText="Id">
-					<h:outputText value="#{professor.id}" />
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{professor.id}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="modelInput" value="#{professor.id}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
 				</p:column>
 
 				<p:column headerText="First Name">
-					<h:outputText value="#{professor.firstName}" />
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{professor.firstName}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{professor.firstName}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
 				</p:column>
 
 				<p:column headerText="Last Name">
-					<h:outputText value="#{professor.lastName}" />
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{professor.lastName}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{professor.lastName}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
 				</p:column>
 
 				<p:column headerText="Email">
-					<h:outputText value="#{professor.email}" />
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{professor.email}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{professor.email}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">Action</f:facet>
+					<h:commandLink value="Delete"
+						action="#{professorController.deleteProfessor(professor)}" />
+				</p:column>
+
+				<p:column style="width:35px">
+					<p:rowEditor />
 				</p:column>
 			</p:dataTable>
+			<br />
 
+			<p:commandButton value="Add Professor" icon="ui-icon-star"
+				action="#{professorController.redirectToAddProfessor()}"
+				ajax="false">
+			</p:commandButton>
 		</p:panelGrid>
 	</h:form>
 </h:body>

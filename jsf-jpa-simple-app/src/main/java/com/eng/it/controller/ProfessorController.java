@@ -4,9 +4,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+
+import org.primefaces.event.RowEditEvent;
 
 import com.eng.it.dao.ProfessorDao;
 import com.eng.it.model.Professor;
@@ -26,14 +30,20 @@ public class ProfessorController {
 		professorDao = new ProfessorDao();
 		professorDao.setEntityManager(entityManager);
 		professors = professorDao.getAllProfessors();
-		professor=new Professor();
+		professor = new Professor();
 	}
 
 	public String addProfessor() {
-		professorDao.insert(professor);		
+		professorDao.insert(professor);
 		return "professor.xhtml?faces-redirect=true";
 	}
-	
+
+	public String deleteProfessor(Professor professor) {
+		professorDao.delete(professor);
+		professors.remove(professor);
+		return "professor.xhtml?faces-redirect=true";
+	}
+
 	public String redirectToAddProfessor() {
 		return "addProfessor";
 	}
@@ -60,6 +70,17 @@ public class ProfessorController {
 
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
+	}
+
+	public void onRowEdit(RowEditEvent<Professor> event) {
+		professorDao.update(event.getObject());
+		FacesMessage msg = new FacesMessage("Professor Updated");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onRowCancel(RowEditEvent<Professor> event) {
+		FacesMessage msg = new FacesMessage("Update Cancelled");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 }
