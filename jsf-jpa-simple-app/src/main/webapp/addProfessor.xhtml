@@ -14,11 +14,13 @@
 			<p:outputLabel for="firstName" value="firstName:" />
 			<p:inputText id="firstName" value="#{professorController.professor.firstName}" required="true" >
 			 <f:validateLength minimum="2" />
+			 <f:validateLength maximum="15" />
 			</p:inputText>
 
 			<p:outputLabel for="lastName" value="lastName:" />
 			<p:inputText id="lastName" value="#{professorController.professor.lastName}" required="true">
 			<f:validateLength minimum="2" />
+			<f:validateLength maximum="15" />
 			</p:inputText>
 
 			<p:outputLabel for="email" value="email:" />
