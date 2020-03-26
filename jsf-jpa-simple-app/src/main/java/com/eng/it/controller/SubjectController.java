@@ -19,6 +19,8 @@ import com.eng.it.model.Subject;
 @RequestScoped
 public class SubjectController {
 
+	private static final String ADD_SUBJECT = "addSubject";
+
 	@Inject
 	private EntityManager entityManager;
 
@@ -36,11 +38,11 @@ public class SubjectController {
 	}
 
 	public String addSubject() {
-		return "addSubject";
+		return ADD_SUBJECT;
 	}
 
 	public String updateSubject() {
-		return "addSubject";
+		return ADD_SUBJECT;
 	}
 
 	public void deleteSubject() {
@@ -75,7 +77,7 @@ public class SubjectController {
 
 	public void onRowEdit(RowEditEvent<Subject> event) {
 		subjectDao.update(event.getObject());
-
+		
 		FacesMessage msg = new FacesMessage("Subject Edited");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
@@ -83,23 +85,14 @@ public class SubjectController {
 	public void onRowDelite(Subject subject) {
 		subjectDao.delite(subject);
 		subjectsList.remove(subject);
+		
 		FacesMessage msg = new FacesMessage("Subject deleted");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
-	public void onRowCancel(RowEditEvent<Subject> event) {
+	public void onRowCancel() {
 		FacesMessage msg = new FacesMessage("Subject Cancelled");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
-//
-//	public void onCellEdit(CellEditEvent event) {
-//		Object oldValue = event.getOldValue();
-//		Object newValue = event.getNewValue();
-//
-//		if (newValue != null && !newValue.equals(oldValue)) {
-//			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed",
-//					"Old: " + oldValue + ", New:" + newValue);
-//			FacesContext.getCurrentInstance().addMessage(null, msg);
-//		}
-//	}
+
 }

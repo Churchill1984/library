@@ -2,15 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui" lang="">
 
 <h:head>
-
+	<title>SUBJECTS</title>
 </h:head>
 
 <h:body>
 	<h:form id="form">
 		<p:panelGrid columns="1">
+			<p:commandButton value="Add subject" icon="ui-icon-star"
+				action="#{subjectController.addSubject()}" ajax="false">
+			</p:commandButton>
+
+			<br></br>
+
 			<p:growl id="msgs" showDetail="true" />
 
 			<p:dataTable id="subjectsList" var="subject"
@@ -22,7 +28,7 @@
 				<p:ajax event="rowEditCancel"
 					listener="#{subjectController.onRowCancel}" update=":form:msgs" />
 
-				<p:column headerText="Id">
+				<p:column headerText="ID">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{subject.id}" />
@@ -34,7 +40,7 @@
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="Name">
+				<p:column headerText="NAME">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{subject.name}" />
@@ -46,7 +52,7 @@
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="espb">
+				<p:column headerText="ESPB">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{subject.espb}" />
@@ -69,12 +75,6 @@
 						action="#{subjectController.onRowDelite(subject)}" />
 				</p:column>
 			</p:dataTable>
-
-			<br></br>
-
-			<p:commandButton value="Add subject" icon="ui-icon-star"
-				action="#{subjectController.addSubject()}" ajax="false">
-			</p:commandButton>
 		</p:panelGrid>
 	</h:form>
 </h:body>
