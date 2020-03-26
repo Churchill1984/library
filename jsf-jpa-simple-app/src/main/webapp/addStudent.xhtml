@@ -9,20 +9,28 @@
 <body>
  	<h:form>
     <h:panelGrid columns="1" cellpadding="5">
-    	<!-- <h:outputLabel for="id" value="Id:" style="font-weight:bold" />
-        <p:inputText id="id" value=  "#{studentController.newStudent.id}"/>  -->
-        
+    	
         <h:outputLabel for="firstName" value="First name:" style="font-weight:bold" />
-        <p:inputText id="firstName" value="#{studentController.newStudent.firstName}"/> 
+        <p:inputText id="firstName" value="#{studentController.student.firstName}">
+        	<f:validateLength minimum="2" />
+        	<f:validateLength maximum="15"/>
+        </p:inputText> 
         
         <h:outputLabel for="lastName" value="Last name:" style="font-weight:bold" />
-        <p:inputText id="lastName" value="#{studentController.newStudent.lastName}" /> 
+        <p:inputText id="lastName" value="#{studentController.student.lastName}"> 
+        	<f:validateLength minimum="2" />
+        	<f:validateLength maximum="15"/>
+        </p:inputText> 
         
         <h:outputLabel for="email" value="E-mail:" style="font-weight:bold" />
-        <p:inputText id="email" value="#{studentController.newStudent.email}"/> 
+        <p:inputText id="email" value="#{studentController.student.email}">
+        	<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
+        </p:inputText> 
         
         <h:outputLabel for="score" value="ESPB:" style="font-weight:bold" />
-        <p:inputText id="score" value="#{studentController.newStudent.score}"/> 
+        <p:inputText id="score" value="#{studentController.student.score}">
+        	<f:validateLongRange maximum="320"  />
+        </p:inputText> 
         
         <!--  <p:commandButton value="Submit" update="display" icon="pi pi-check" />
         <h:outputText id="display" value="#{basicView.text}" /> -->

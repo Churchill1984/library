@@ -19,13 +19,23 @@ public class StudentDAO {
 	        return entityManager.find(Student.class, id);
 	    }
 
-	    public void insert(Student Student) {
+	    public void insert(Student student) {
 	        entityManager.getTransaction().begin();
-	        entityManager.persist(Student);
+	        entityManager.persist(student);
 	        entityManager.getTransaction().commit();
 	    }
 
+	    public void update(Student student) {
+	        entityManager.getTransaction().begin();
+	        entityManager.merge(student);
+	        entityManager.getTransaction().commit();
+	    }
 	 
+	    public void delete(Student student) {
+	        entityManager.getTransaction().begin();
+	        entityManager.remove(student);
+	        entityManager.getTransaction().commit();
+	    }
 	    public List<Student> getAllStudents() {
 	         return entityManager.createQuery("select s from Student s", Student.class).getResultList();
 	        

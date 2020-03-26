@@ -6,9 +6,14 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+
+import org.primefaces.event.RowEditEvent;
+
 import com.eng.it.dao.StudentDAO;
 import com.eng.it.model.Student;
 
@@ -23,23 +28,46 @@ public class StudentController {
 
 	    private List<Student> students;
 	    
-	    private Student newStudent;
-	    
+	    private Student student;
 	    @PostConstruct
 	    public void init() {
 	        studentDAO = new StudentDAO();
 	        studentDAO.setEntityManager(entityManager);
 	        students = studentDAO.getAllStudents();
-	        newStudent = new Student();
+	        student = new Student();
 	    }
 
 	    public String addStudent() {
-	    	studentDAO.insert(newStudent);
+	    	studentDAO.insert(student);
 	    	return "student.xhtml?faces-redirect=true";
 	    }
 	    
 	    public String redirectToAddStudent() {
 	        return "addStudent";
+	    }
+	    
+	    public String deleteStudent(Student student) {
+	        studentDAO.delete(student);
+	        students.remove(student);
+	        return "student.xhtml?faces-redirect=true";
+	    }
+	    
+	  //for update
+	    public void onRowEdit(RowEditEvent<Student> event) {
+	        studentDAO.update(event.getObject());
+	        FacesMessage msg = new FacesMessage("Student Updated");
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	    }
+	    
+	    public void onRowCancel(RowEditEvent<Student> event) {
+	        FacesMessage msg = new FacesMessage("Update Cancelled");
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	    }
+	    
+	     //for delete
+	    public void addMessage(String summary, String detail) {
+	        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+	        FacesContext.getCurrentInstance().addMessage(null, message);
 	    }
 	    
 	    public StudentDAO getStudentDao() {
@@ -58,12 +86,12 @@ public class StudentController {
 	        this.students = students;
 	    }
 
-		public Student getNewStudent() {
-			return newStudent;
+		public Student getStudent() {
+			return student;
 		}
 
-		public void setNewStudent(Student newStudent) {
-			this.newStudent = newStudent;
+		public void setNewStudent(Student student) {
+			this.student = student;
 		}
 	
 }

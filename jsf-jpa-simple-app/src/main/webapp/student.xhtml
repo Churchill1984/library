@@ -8,38 +8,102 @@
 </h:head>
 
 <h:body>
-    <h:form>
+    <h:form id="form">
         <p:panelGrid columns="1">
-
- 
-
-            <p:commandButton value="Add Student" icon="ui-icon-star"
-                action="#{studentController.redirectToAddStudent()}" ajax="false">
-            </p:commandButton>
-            
-            <p:dataTable var="student" value="#{studentController.students}">
+            <p:growl id="msgs" showDetail="true" />
+            <p:growl id="message" showDetail="true" />
+            <p:dataTable var="student" editable="true"
+                value="#{studentController.students}" style="margin-bottom:20px">
+                <p:ajax event="rowEdit" listener="#{studentController.onRowEdit}"
+                    update=":form:msgs" />
+                <p:ajax event="rowEditCancel"
+                    listener="#{studentController.onRowCancel}" update=":form:msgs" />
                 <p:column headerText="Id">
-                    <h:outputText value="#{student.id}" />
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{student.id}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInput" value="#{student.id}"
+                                style="width:100%" />                                 
+                        </f:facet>
+                    </p:cellEditor>
                 </p:column>
-                
                 <p:column headerText="First Name">
-                    <h:outputText value="#{student.firstName}" />
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{student.firstName}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{student.firstName}" style="width:100%" required="true">
+                            	<f:validateLength minimum="2" />
+                            	<f:validateLength maximum="15" />
+                           </p:inputText> 
+                        </f:facet>
+                    </p:cellEditor>
                 </p:column>
-                
                 <p:column headerText="Last Name">
-                    <h:outputText value="#{student.lastName}" />
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{student.lastName}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{student.lastName}" style="width:100%" required="true">
+                            	<f:validateLength minimum="2" />
+                            	<f:validateLength maximum="15" />
+                           </p:inputText>
+                        </f:facet>
+                    </p:cellEditor>
                 </p:column>
-                
                 <p:column headerText="Email">
-                    <h:outputText value="#{student.email}" />
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{student.email}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{student.email}" style="width:100%" required="true">
+                            	<f:validateLength minimum="2" />
+                            	<f:validateLength maximum="15" />
+                           </p:inputText>
+                        </f:facet>
+                    </p:cellEditor>
                 </p:column>
-                
                 <p:column headerText="ESPB">
-                    <h:outputText value="#{student.score}" />
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{student.score}" />
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{student.score}" style="width:100%" required="true">
+                            	<f:validateLongRange max="320" />
+                            </p:inputText>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Action</f:facet>
+                    <p:commandButton value="Delete"
+                        action="#{studentController.deleteStudent(student)}" update=":form:message">
+                        <p:confirm header="Confirmation" message="Are you sure?"
+                            icon="pi pi-exclamation-triangle" />
+                    </p:commandButton>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Yes" type="button"
+                        styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                    <p:commandButton value="No" type="button"
+                        styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                </p:confirmDialog>
+                </p:column>
+                <p:column style="width:35px">
+                    <p:rowEditor />
                 </p:column>
                 
             </p:dataTable>
-            
+            <br />
+            <p:commandButton value="Add Student" icon="ui-icon-star"
+                action="#{studentController.redirectToAddStudent()}"
+                ajax="false">
+            </p:commandButton>
         </p:panelGrid>
     </h:form>
 </h:body>
