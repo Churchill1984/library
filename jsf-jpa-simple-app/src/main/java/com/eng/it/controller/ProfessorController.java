@@ -10,6 +10,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
+import org.primefaces.event.CloseEvent;
+import org.primefaces.event.MoveEvent;
 import org.primefaces.event.RowEditEvent;
 
 import com.eng.it.dao.ProfessorDao;
@@ -71,7 +73,8 @@ public class ProfessorController {
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
 	}
-
+	
+    //for update
 	public void onRowEdit(RowEditEvent<Professor> event) {
 		professorDao.update(event.getObject());
 		FacesMessage msg = new FacesMessage("Professor Updated");
@@ -83,4 +86,10 @@ public class ProfessorController {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
+	 //for delete
+
+    public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
 }

@@ -12,13 +12,19 @@
 		<p:panelGrid columns="1">
 
 			<p:outputLabel for="firstName" value="firstName:" />
-			<p:inputText id="firstName" value="#{professorController.professor.firstName}" />
+			<p:inputText id="firstName" value="#{professorController.professor.firstName}" required="true" >
+			 <f:validateLength minimum="2" />
+			</p:inputText>
 
 			<p:outputLabel for="lastName" value="lastName:" />
-			<p:inputText id="lastName" value="#{professorController.professor.lastName}" />
+			<p:inputText id="lastName" value="#{professorController.professor.lastName}" required="true">
+			<f:validateLength minimum="2" />
+			</p:inputText>
 
 			<p:outputLabel for="email" value="email:" />
-			<p:inputText id="email" value="#{professorController.professor.email}" />
+			<p:inputText id="email" value="#{professorController.professor.email}" required="true">
+			<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
+			</p:inputText>
 
 			<p:commandButton value="Confirm" icon="ui-icon-star"
 				action="#{professorController.addProfessor()}" ajax="false">

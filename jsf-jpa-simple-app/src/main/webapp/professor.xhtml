@@ -13,6 +13,7 @@
 		<p:panelGrid columns="1">
 
 			<p:growl id="msgs" showDetail="true" />
+			<p:growl id="message" showDetail="true" />
 			<p:dataTable var="professor" editable="true"
 				value="#{professorController.professors}" style="margin-bottom:20px">
 
@@ -69,13 +70,24 @@
 
 				<p:column>
 					<f:facet name="header">Action</f:facet>
-					<h:commandLink value="Delete"
-						action="#{professorController.deleteProfessor(professor)}" />
+					<p:commandButton value="Delete"
+						action="#{professorController.deleteProfessor(professor)}" update=":form:message">
+						<p:confirm header="Confirmation" message="Are you sure?"
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Yes" type="button"
+						styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+					<p:commandButton value="No" type="button"
+						styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+				</p:confirmDialog>
 				</p:column>
 
 				<p:column style="width:35px">
 					<p:rowEditor />
 				</p:column>
+
+				
 			</p:dataTable>
 			<br />
 
