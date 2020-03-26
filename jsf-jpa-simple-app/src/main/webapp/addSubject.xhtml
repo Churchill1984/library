@@ -10,26 +10,40 @@
 
 <h:body>
 	<h:form>
+		<p:panel id="panel" header="New Subject">
 
-		<p:panelGrid columns="1">
+			<p:messages id="msgs" />
 
-			<p:outputLabel for="name" value="name:" />
-			<p:inputText id="name" value="#{addSubjectController.subject.name}" />
+			<h:panelGrid columns="3" cellpadding="5">
+				<p:outputLabel for="name" value="Name:" />
+				<p:inputText id="name" value="#{addSubjectController.subject.name}"
+					required="true" label="NAME">
+					<f:validateLength minimum="3" />
+				</p:inputText>
+				<p:message for="name" display="icon" />
 
-			<p:outputLabel for="espb" value="espb:" />
-			<p:inputText id="espb" value="#{addSubjectController.subject.espb}" />
+				<p:outputLabel for="espb" value="ESPB:" />
+				<p:inputText id="espb" value="#{addSubjectController.subject.espb}"
+					label="ESPB" required="true">
+					<f:validateLength minimum="1" />
+					<p:ajax update="msgEspb" event="keyup" />
+				</p:inputText>
+				<p:message for="espb" id="msgEspb" display="icon" />
 
-			<p:outputLabel for="active" value="Aktivan:" />
-			<p:selectOneRadio id="active" value="#{addSubjectController.console}"
-				unselectable="true">
-				<f:selectItem itemLabel="Da" itemValue="Da" />
-				<f:selectItem itemLabel="Ne" itemValue="Ne" />
-			</p:selectOneRadio>
+				<p:outputLabel for="active" value="Aktivan:" />
+				<p:selectOneRadio id="active"
+					value="#{addSubjectController.subject.active}" unselectable="true">
+					<f:selectItem itemLabel="Da" itemValue="#{true}" />
+					<f:selectItem itemLabel="Ne" itemValue="#{false}" />
+				</p:selectOneRadio>
+				<p:message for="@previous" />
 
-			<p:commandButton value="Confirm" icon="ui-icon-star"
+			</h:panelGrid>
+
+			<p:commandButton value="Confirm" icon="ui-icon-star" update="panel"
 				action="#{addSubjectController.addSubject()}" ajax="false">
 			</p:commandButton>
-		</p:panelGrid>
+		</p:panel>
 	</h:form>
 </h:body>
 </html>

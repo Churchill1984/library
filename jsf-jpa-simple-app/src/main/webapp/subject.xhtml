@@ -2,79 +2,72 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" lang="">
-
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>SUBJECTS</title>
+	<h1>Subject</h1>
 </h:head>
-
 <h:body>
 	<h:form id="form">
 		<p:panelGrid columns="1">
-			<p:commandButton value="Add subject" icon="ui-icon-star"
-				action="#{subjectController.addSubject()}" ajax="false">
-			</p:commandButton>
-
-			<br></br>
-
 			<p:growl id="msgs" showDetail="true" />
-
-			<p:dataTable id="subjectsList" var="subject"
-				value="#{subjectController.subjectsList}" editable="true"
-				style="margin-bottom:20px">
-
+			<p:growl id="message" showDetail="true" />
+			<p:dataTable var="subject" editable="true"
+				value="#{subjectController.subjectsList}" style="margin-bottom:20px">
 				<p:ajax event="rowEdit" listener="#{subjectController.onRowEdit}"
 					update=":form:msgs" />
 				<p:ajax event="rowEditCancel"
 					listener="#{subjectController.onRowCancel}" update=":form:msgs" />
-
-				<p:column headerText="ID">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{subject.id}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText id="modelInput" value="#{subject.id}"
-								style="width:100%" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-
-				<p:column headerText="NAME">
+				<p:column id="name" headerText="Name">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{subject.name}" />
 						</f:facet>
 						<f:facet name="input">
 							<p:inputText value="#{subject.name}" style="width:100%"
-								label="Name" />
+								required="true">
+								<f:validateRequired for="name"/>
+							</p:inputText>
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-
-				<p:column headerText="ESPB">
+				<p:column id="espb" headerText="Espb">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{subject.espb}" />
 						</f:facet>
 						<f:facet name="input">
 							<p:inputText value="#{subject.espb}" style="width:100%"
-								label="espb" />
+								required="true">
+								<f:validateRequired for="espb"/>
+							</p:inputText>
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
 
+				<p:column>
+					<f:facet name="header">Action</f:facet>
+					<p:commandButton value="Delete"
+						action="#{subjectController.onRowDelite(subject)}"
+						update=":form:message">
+						<p:confirm header="Confirmation" message="Are you sure?"
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Yes" type="button"
+							styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+						<p:commandButton value="No" type="button"
+							styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+					</p:confirmDialog>
+				</p:column>
 				<p:column style="width:35px">
-					<f:facet name="header">Edit</f:facet>
 					<p:rowEditor />
 				</p:column>
 
-				<p:column>
-					<f:facet name="header">Action</f:facet>
-					<h:commandLink value="Delete"
-						action="#{subjectController.onRowDelite(subject)}" />
-				</p:column>
 			</p:dataTable>
+			<br />
+			<p:commandButton value="Add Subject" icon="ui-icon-star"
+				action="#{subjectController.addSubject()}" ajax="false">
+			</p:commandButton>
 		</p:panelGrid>
 	</h:form>
 </h:body>

@@ -41,24 +41,6 @@ public class SubjectController {
 		return ADD_SUBJECT;
 	}
 
-	public String updateSubject() {
-		return ADD_SUBJECT;
-	}
-
-	public void deleteSubject() {
-
-		if (selectedSubject != null) {
-			subjectDao.delete(selectedSubject);
-			subjectsList.remove(selectedSubject);
-
-			selectedSubject = null;
-		} else {
-			FacesMessage msg = new FacesMessage("You need to select subject in table, which you wanna delete...");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		}
-
-	}
-
 	public List<Subject> getSubjectsList() {
 		return subjectsList;
 	}
@@ -77,22 +59,30 @@ public class SubjectController {
 
 	public void onRowEdit(RowEditEvent<Subject> event) {
 		subjectDao.update(event.getObject());
-		
+
 		FacesMessage msg = new FacesMessage("Subject Edited");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
-	public void onRowDelite(Subject subject) {
+	public String onRowDelite(Subject subject) {
 		subjectDao.delite(subject);
 		subjectsList.remove(subject);
-		
+
 		FacesMessage msg = new FacesMessage("Subject deleted");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+		
+		return "/subject.xhtml?faces-redirect=true";
 	}
 
 	public void onRowCancel() {
 		FacesMessage msg = new FacesMessage("Subject Cancelled");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	// for delete
+	public void addMessage(String summary, String detail) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 
 }
