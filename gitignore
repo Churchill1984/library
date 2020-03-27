@@ -32,7 +32,7 @@ logs/
 target/
 
 ##Eclipse.gitignore
-.metadata/
+.metadata/*
 bin/
 tmp/
 *.tmp
