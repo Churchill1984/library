@@ -2,6 +2,7 @@ package com.eng.it.model;
 
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.inject.Named;
 import javax.persistence.Column;
@@ -9,7 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 
 @Entity
 @Table(name="student")
@@ -36,6 +40,20 @@ public class Student implements Serializable {
 	 
 	 @Column(name = "SCORE", nullable = false)
 	 int score;
+	 
+	 @ManyToMany
+	 @JoinTable(name="student_subjects",
+			   joinColumns=@JoinColumn(name="STUDENT_ID", referencedColumnName="ID"),
+			   inverseJoinColumns=@JoinColumn(name="SUBJECT_ID", referencedColumnName="ID"))
+	 List<Subject> listOfSubjects;
+
+	public List<Subject> getListOfSubjects() {
+		return listOfSubjects;
+	}
+
+	public void setListOfSubjects(List<Subject> listOfSubjects) {
+		this.listOfSubjects = listOfSubjects;
+	}
 
 	public long getId() {
 		return id;
