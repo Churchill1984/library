@@ -10,12 +10,16 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
+import org.primefaces.event.RowEditEvent;
+
 import com.eng.it.dao.SubjectDao;
 import com.eng.it.model.Subject;
 
 @Named
 @RequestScoped
 public class SubjectController {
+
+	private static final String ADD_SUBJECT = "addSubject";
 
 	@Inject
 	private EntityManager entityManager;
@@ -34,25 +38,7 @@ public class SubjectController {
 	}
 
 	public String addSubject() {
-		return "addSubject";
-	}
-
-	public String updateSubject() {
-		return "addSubject";
-	}
-
-	public void deleteSubject() {
-
-		if (selectedSubject != null) {
-			subjectDao.delete(selectedSubject);
-			subjectsList.remove(selectedSubject);
-
-			selectedSubject = null;
-		} else {
-			FacesMessage msg = new FacesMessage("You need to select subject in table, which you wanna delete...");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		}
-
+		return ADD_SUBJECT;
 	}
 
 	public List<Subject> getSubjectsList() {
@@ -69,6 +55,34 @@ public class SubjectController {
 
 	public void setSelectedSubject(Subject selectedSubject) {
 		this.selectedSubject = selectedSubject;
+	}
+
+	public void onRowEdit(RowEditEvent<Subject> event) {
+		subjectDao.update(event.getObject());
+
+		FacesMessage msg = new FacesMessage("Subject Edited");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public String onRowDelite(Subject subject) {
+		subjectDao.delite(subject);
+		subjectsList.remove(subject);
+
+		FacesMessage msg = new FacesMessage("Subject deleted");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		
+		return "/subject.xhtml?faces-redirect=true";
+	}
+
+	public void onRowCancel() {
+		FacesMessage msg = new FacesMessage("Subject Cancelled");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	// for delete
+	public void addMessage(String summary, String detail) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 
 }
