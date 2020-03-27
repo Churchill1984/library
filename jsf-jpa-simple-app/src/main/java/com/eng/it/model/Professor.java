@@ -1,16 +1,20 @@
 package com.eng.it.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "professor")
-public class Professor implements Serializable{
+public class Professor implements Serializable {
 
 	/**
 	 * 
@@ -23,14 +27,19 @@ public class Professor implements Serializable{
 	private long id;
 
 	@Column(name = "FIRST_NAME", nullable = false, length = 30)
-	String firstName;
+	private String firstName;
 
 	@Column(name = "LAST_NAME", nullable = false, length = 30)
-	String lastName;
+	private String lastName;
 
 	@Column(name = "E_MAIL", nullable = false, length = 30)
-	String email;
+	private String email;
 
+	@ManyToMany
+	@JoinTable(name = "professor_subject",
+	joinColumns = @JoinColumn(name = "PROFESSOR_ID",referencedColumnName="ID"),
+	inverseJoinColumns = @JoinColumn(name = "SUBJECT_ID",referencedColumnName="ID"))
+	private List<Subject> listOfSubjects;
 
 	public long getId() {
 		return id;
@@ -62,6 +71,14 @@ public class Professor implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public List<Subject> getListOfSubjects() {
+		return listOfSubjects;
+	}
+
+	public void setListOfSubjects(List<Subject> listOfSubjects) {
+		this.listOfSubjects = listOfSubjects;
 	}
 
 	@Override

@@ -1,11 +1,13 @@
 package com.eng.it.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -31,6 +33,9 @@ public class Subject implements Serializable {
 	@Column(name = "ACTIVE")
 	private boolean active = true;
 
+	@ManyToMany(mappedBy = "listOfSubjects")
+	private List<Professor> listOfProfessors;
+	
 	public long getId() {
 		return id;
 	}
@@ -63,4 +68,13 @@ public class Subject implements Serializable {
 		this.active = active;
 	}
 
+	public List<Professor> getListOfProfessors() {
+		return listOfProfessors;
+	}
+
+	public void setListOfProfessors(List<Professor> listOfProfessors) {
+		this.listOfProfessors = listOfProfessors;
+	}
+
+	
 }
