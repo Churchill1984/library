@@ -25,6 +25,7 @@
 		<jta-data-source>java:jboss/datasources/SimpleJsfJpaDS</jta-data-source>
 		
 		<class>com.eng.it.model.Subject</class>
+		<class>com.eng.it.model.ExamRegistration</class>
 		
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 
