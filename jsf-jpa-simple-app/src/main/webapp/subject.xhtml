@@ -3,48 +3,71 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-
 <h:head>
-
+	<h1>Subject</h1>
 </h:head>
-
 <h:body>
-	<h:form>
-		<p:messages id="messages" />
+	<h:form id="form">
 		<p:panelGrid columns="1">
+			<p:growl id="msgs" showDetail="true" />
+			<p:growl id="message" showDetail="true" />
+			<p:dataTable var="subject" editable="true"
+				value="#{subjectController.subjectsList}" style="margin-bottom:20px">
+				<p:ajax event="rowEdit" listener="#{subjectController.onRowEdit}"
+					update=":form:msgs" />
+				<p:ajax event="rowEditCancel"
+					listener="#{subjectController.onRowCancel}" update=":form:msgs" />
+				<p:column id="name" headerText="Name">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{subject.name}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{subject.name}" style="width:100%"
+								required="true">
+								<f:validateRequired for="name"/>
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column id="espb" headerText="Espb">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{subject.espb}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{subject.espb}" style="width:100%"
+								required="true">
+								<f:validateRequired for="espb"/>
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
 
-			<p:commandButton value="Add subject" icon="ui-icon-star"
+				<p:column>
+					<f:facet name="header">Action</f:facet>
+					<p:commandButton value="Delete"
+						action="#{subjectController.onRowDelite(subject)}"
+						update=":form:message">
+						<p:confirm header="Confirmation" message="Are you sure?"
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Yes" type="button"
+							styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+						<p:commandButton value="No" type="button"
+							styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+					</p:confirmDialog>
+				</p:column>
+				<p:column style="width:35px">
+					<p:rowEditor />
+				</p:column>
+
+			</p:dataTable>
+			<br />
+			<p:commandButton value="Add Subject" icon="ui-icon-star"
 				action="#{subjectController.addSubject()}" ajax="false">
 			</p:commandButton>
-			
-			<br></br>
-
-			<p:dataTable id="singleDT" var="subject"
-				value="#{subjectController.subjectsList}" selectionMode="single"
-				selection="#{subjectController.selectedSubject}"
-				rowKey="#{subject.id}">
-				<f:facet name="header">Subjects</f:facet>
-				<p:column headerText="Id">
-					<h:outputText value="#{subject.id}" />
-				</p:column>
-
-				<p:column headerText="Name">
-					<h:outputText value="#{subject.name}" />
-				</p:column>
-
-				<p:column headerText="ESPB">
-					<h:outputText value="#{subject.espb}" />
-				</p:column>
-				<f:facet name="footer">
-					<p:commandButton value="Update subject" icon="ui-icon-star"
-						action="#{subjectController.updateSubject()}" ajax="false">
-					</p:commandButton>
-					
-					<p:commandButton value="Delete subject" icon="ui-icon-star"
-						action="#{subjectController.deleteSubject()}" ajax="false">
-					</p:commandButton>
-				</f:facet>
-			</p:dataTable>
 		</p:panelGrid>
 	</h:form>
 </h:body>

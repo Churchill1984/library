@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+<h:head>
+<title>Add new Student</title>
+</h:head>
+<body>
+ 	<h:form>
+    <h:panelGrid columns="1" cellpadding="5">
+    	
+        <h:outputLabel for="firstName" value="First name:" style="font-weight:bold" />
+        <p:inputText id="firstName" value="#{studentController.student.firstName}">
+        	<f:validateLength minimum="2" />
+        	<f:validateLength maximum="15"/>
+        </p:inputText> 
+        
+        <h:outputLabel for="lastName" value="Last name:" style="font-weight:bold" />
+        <p:inputText id="lastName" value="#{studentController.student.lastName}"> 
+        	<f:validateLength minimum="2" />
+        	<f:validateLength maximum="15"/>
+        </p:inputText> 
+        
+        <h:outputLabel for="email" value="E-mail:" style="font-weight:bold" />
+        <p:inputText id="email" value="#{studentController.student.email}">
+        	<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
+        </p:inputText> 
+        
+        <h:outputLabel for="score" value="ESPB:" style="font-weight:bold" />
+        <p:inputText id="score" value="#{studentController.student.score}">
+        	<f:validateLongRange maximum="320"  />
+        </p:inputText> 
+        
+        <!--  <p:commandButton value="Submit" update="display" icon="pi pi-check" />
+        <h:outputText id="display" value="#{basicView.text}" /> -->
+        <h:commandButton value="Submit" action="#{studentController.addStudent()}"></h:commandButton>
+    </h:panelGrid>
+</h:form>
+</body>
+</html>
