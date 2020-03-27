@@ -24,20 +24,25 @@
 			in the source at src/test/resources/test-ds.xml -->
 		<jta-data-source>java:jboss/datasources/SimpleJsfJpaDS</jta-data-source>
 		
-		<class>com.eng.it.model.Subject</class>
+
+		<class>com.eng.it.model.Student</class>
+  	<class>com.eng.it.model.Subject</class>
 		<class>com.eng.it.model.ExamRegistration</class>
+
 		
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
-
+		
 		<properties>
 			<!-- Properties for Hibernate -->
 			<property name="hibernate.archive.autodetection"
 				value="class" />
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.MySQL5Dialect" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />		
+			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="true"/>
-        
+            <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
 		</properties>
 	</persistence-unit>
 </persistence>
