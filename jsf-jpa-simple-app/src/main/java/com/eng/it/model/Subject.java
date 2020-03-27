@@ -1,11 +1,14 @@
 package com.eng.it.model;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -30,6 +33,9 @@ public class Subject implements Serializable {
 
 	@Column(name = "ACTIVE")
 	private boolean active = true;
+
+	@ManyToMany(mappedBy = "listOfSubjects")
+	private List<Exam> listOfExams;
 
 	public long getId() {
 		return id;
