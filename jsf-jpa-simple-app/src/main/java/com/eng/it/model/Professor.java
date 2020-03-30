@@ -40,6 +40,13 @@ public class Professor implements Serializable {
 	joinColumns = @JoinColumn(name = "PROFESSOR_ID",referencedColumnName="ID"),
 	inverseJoinColumns = @JoinColumn(name = "SUBJECT_ID",referencedColumnName="ID"))
 	private List<Subject> listOfSubjects;
+	
+	@ManyToMany
+	@JoinTable(name = "professor_exam",
+	joinColumns = @JoinColumn(name = "PROFESSOR_ID",referencedColumnName="ID"),
+	inverseJoinColumns = @JoinColumn(name = "EXAM_ID",referencedColumnName="ID"))
+	private List<ExamRegistration> listOfExams;
+	
 
 	public long getId() {
 		return id;
@@ -79,6 +86,14 @@ public class Professor implements Serializable {
 
 	public void setListOfSubjects(List<Subject> listOfSubjects) {
 		this.listOfSubjects = listOfSubjects;
+	}
+
+	public List<ExamRegistration> getListOfExams() {
+		return listOfExams;
+	}
+
+	public void setListOfExams(List<ExamRegistration> listOfExams) {
+		this.listOfExams = listOfExams;
 	}
 
 	@Override

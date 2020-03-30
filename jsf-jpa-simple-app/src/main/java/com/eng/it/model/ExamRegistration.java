@@ -2,11 +2,13 @@ package com.eng.it.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -32,6 +34,9 @@ public class ExamRegistration implements Serializable {
 	private LocalDate examFrom;
 	@Column(name = "EXAM_TO", nullable = false)
 	private LocalDate examTo;
+	
+	@ManyToMany(mappedBy = "listOfExams")
+	private List<Professor> listOfProfessors;
 
 	public long getId() {
 		return id;
@@ -79,6 +84,14 @@ public class ExamRegistration implements Serializable {
 
 	public void setExamTo(LocalDate examTo) {
 		this.examTo = examTo;
+	}
+
+	public List<Professor> getListOfProfessors() {
+		return listOfProfessors;
+	}
+
+	public void setListOfProfessors(List<Professor> listOfProfessors) {
+		this.listOfProfessors = listOfProfessors;
 	}
 
 }
