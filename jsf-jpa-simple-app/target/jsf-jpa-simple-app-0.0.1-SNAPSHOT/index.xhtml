@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:messages id="messages" />
+		<p:panelGrid columns="3">
+
+			<p:commandButton value="Professor" icon="ui-icon-star"
+				action="#{homeController.viewProfessor()}" ajax="false">
+			</p:commandButton>
+			
+			<p:commandButton value="Student" icon="ui-icon-star"
+				action="#{homeController.viewStudent()}" ajax="false">
+			</p:commandButton>
+			
+			<p:commandButton value="Subject" icon="ui-icon-star"
+				action="#{homeController.viewSubject()}" ajax="false">
+			</p:commandButton>
+
+		</p:panelGrid>
+	</h:form>
+</h:body>
+</html>

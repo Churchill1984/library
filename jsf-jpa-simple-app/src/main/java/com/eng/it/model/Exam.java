@@ -2,16 +2,20 @@ package com.eng.it.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "exam_registration")
-public class ExamRegistration implements Serializable {
+@Table(name = "exam")
+public class Exam implements Serializable {
 
 	/**
 	 * 
@@ -28,10 +32,13 @@ public class ExamRegistration implements Serializable {
 	private LocalDate registrationFrom;
 	@Column(name = "REGISTRATION_TO", nullable = false)
 	private LocalDate registrationTo;
-	@Column(name = "EXAM_FROM", nullable = false)
-	private LocalDate examFrom;
-	@Column(name = "EXAM_TO", nullable = false)
-	private LocalDate examTo;
+	@Column(name = "EXAM_DATE", nullable = false)
+	private LocalDate examDate;
+	@Column(name = "STATUS", nullable = false)
+	private boolean status = false;
+	@ManyToMany
+	@JoinTable(name = "exam_subject", joinColumns = @JoinColumn(name = "EXAM_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "SUBJECT_ID", referencedColumnName = "ID"))
+	private List<Subject> listOfSubjects;
 
 	public long getId() {
 		return id;
@@ -65,20 +72,28 @@ public class ExamRegistration implements Serializable {
 		this.registrationTo = registrationTo;
 	}
 
-	public LocalDate getExamFrom() {
-		return examFrom;
+	public LocalDate getExamDate() {
+		return examDate;
 	}
 
-	public void setExamFrom(LocalDate examFrom) {
-		this.examFrom = examFrom;
+	public void setExamDate(LocalDate examDate) {
+		this.examDate = examDate;
 	}
 
-	public LocalDate getExamTo() {
-		return examTo;
+	public boolean isStatus() {
+		return status;
 	}
 
-	public void setExamTo(LocalDate examTo) {
-		this.examTo = examTo;
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public List<Subject> getListOfSubjects() {
+		return listOfSubjects;
+	}
+
+	public void setListOfSubjects(List<Subject> listOfSubjects) {
+		this.listOfSubjects = listOfSubjects;
 	}
 
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+	<h:form>
+		<h2 align="center">Student Registration Form</h2>
+		<p:panelGrid columns="1">
+			<p:outputLabel for="firstName" value="name:" />
+			<p:inputText id="firstName" value="#{registrationView.student.firstName}" />
+			
+			<p:outputLabel for="lastName" value="surname:" />
+			<p:inputText id="lastName" value="#{registrationView.student.lastName}" />
+			
+			<p:outputLabel for="city" value="city:" />
+			<p:inputText id="city" value="#{registrationView.student.city}" />
+			
+			<p:outputLabel for="eMail" value="email:" />
+			<p:inputText id="eMail" value="#{registrationView.student.eMail}" />
+			
+			<p:outputLabel for="userName" value="username:" />
+			<p:inputText id="userName" value="#{registrationView.student.userName}" />
+
+			<p:outputLabel for="password" value="password:" />
+			<p:password id="password" value="#{registrationView.student.password}" />
+
+			<p:commandButton value="Confirm" icon="ui-icon-star"
+				action="#{registrationView.create()}" ajax="false">
+			</p:commandButton>
+		</p:panelGrid>
+	</h:form>
+</h:body>
+</html>

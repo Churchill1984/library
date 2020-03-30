@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h1>Professor</h1>
+</h:head>
+
+<h:body>
+	<h:form id="form">
+		<p:panelGrid columns="1">
+
+			<p:growl id="msgs" showDetail="true" />
+			<p:growl id="message" showDetail="true" />
+			<p:dataTable var="professor" editable="true"
+				value="#{professorController.professors}" style="margin-bottom:20px">
+
+				<p:ajax event="rowEdit" listener="#{professorController.onRowEdit}"
+					update=":form:msgs" />
+				<p:ajax event="rowEditCancel"
+					listener="#{professorController.onRowCancel}" update=":form:msgs" />
+
+				<p:column headerText="First Name">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{professor.firstName}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{professor.firstName}" style="width:100%"
+								required="true">
+								<f:validateLength minimum="2" />
+								<f:validateLength maximum="15" />
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Last Name">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{professor.lastName}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{professor.lastName}" style="width:100%" required="true" >
+							<f:validateLength minimum="2" />
+							<f:validateLength maximum="15" />
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Email">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{professor.email}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{professor.email}" style="width:100%" required="true" >
+							<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">Action</f:facet>
+					<p:commandButton value="Delete"
+						action="#{professorController.deleteProfessor(professor)}"
+						update=":form:message">
+						<p:confirm header="Confirmation" message="Are you sure?"
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Yes" type="button"
+							styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+						<p:commandButton value="No" type="button"
+							styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+					</p:confirmDialog>
+				</p:column>
+
+				<p:column style="width:35px">
+					<p:rowEditor />
+				</p:column>
+
+
+			</p:dataTable>
+			<br />
+
+			<p:commandButton value="Add Professor" icon="ui-icon-star"
+				action="#{professorController.redirectToAddProfessor()}"
+				ajax="false">
+			</p:commandButton>
+		</p:panelGrid>
+	</h:form>
+</h:body>
+</html>
