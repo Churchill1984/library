@@ -66,7 +66,7 @@ public class Professor implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Professor [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+		return "Professor: [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
 	}
 
 }

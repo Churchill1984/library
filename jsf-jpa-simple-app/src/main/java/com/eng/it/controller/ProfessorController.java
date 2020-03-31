@@ -1,26 +1,29 @@
 package com.eng.it.controller;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
-import org.primefaces.event.CloseEvent;
-import org.primefaces.event.MoveEvent;
 import org.primefaces.event.RowEditEvent;
 
 import com.eng.it.dao.ProfessorDao;
 import com.eng.it.model.Professor;
 
 @Named
-@RequestScoped
-public class ProfessorController {
-
+@SessionScoped
+public class ProfessorController implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3085462239394851438L;
 	@Inject
 	private EntityManager entityManager;
 	private Professor professor;
@@ -73,8 +76,8 @@ public class ProfessorController {
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
 	}
-	
-    //for update
+
+	// for update
 	public void onRowEdit(RowEditEvent<Professor> event) {
 		professorDao.update(event.getObject());
 		FacesMessage msg = new FacesMessage("Professor Updated");
@@ -86,10 +89,15 @@ public class ProfessorController {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
-	 //for delete
+	// for delete
+	public void addMessage(String summary, String detail) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+		FacesContext.getCurrentInstance().addMessage(null, message);
+	}
 
-    public void addMessage(String summary, String detail) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
+	// for professor details
+	public String redirectToProfessorDetails(Professor professor) {
+		this.professor = professor;		
+		return "/professorDetails.xhtml??faces-redirect=true";
+	}
 }

@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h1>Professor details</h1>
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:growl id="msgs" showDetail="true" />
+
+		<p:panel id="basic" header="Professor Details"
+			style="margin-bottom:20px">
+			<h:panelGrid columns="2" cellpadding="10">
+				<p:graphicImage name="demo/images/godfather/godfather1.jpg" />
+				<h:outputText value="#{professorDetailsController.selectedProfessor}" />
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

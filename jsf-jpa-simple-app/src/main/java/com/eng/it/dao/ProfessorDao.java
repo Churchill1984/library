@@ -1,14 +1,18 @@
 package com.eng.it.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 import com.eng.it.model.Professor;
 
-public class ProfessorDao {
+public class ProfessorDao implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2863874939749979045L;
 	private EntityManager entityManager;
 
 	public void insert(Professor professor) {

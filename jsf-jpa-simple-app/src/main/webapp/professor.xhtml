@@ -17,6 +17,10 @@
 			<p:dataTable var="professor" editable="true"
 				value="#{professorController.professors}" style="margin-bottom:20px">
 
+				<f:metadata>
+					<f:viewParam id="id" name="item" value="#{professor}" />
+				</f:metadata>
+
 				<p:ajax event="rowEdit" listener="#{professorController.onRowEdit}"
 					update=":form:msgs" />
 				<p:ajax event="rowEditCancel"
@@ -43,9 +47,10 @@
 							<h:outputText value="#{professor.lastName}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{professor.lastName}" style="width:100%" required="true" >
-							<f:validateLength minimum="2" />
-							<f:validateLength maximum="15" />
+							<p:inputText value="#{professor.lastName}" style="width:100%"
+								required="true">
+								<f:validateLength minimum="2" />
+								<f:validateLength maximum="15" />
 							</p:inputText>
 						</f:facet>
 					</p:cellEditor>
@@ -57,8 +62,10 @@
 							<h:outputText value="#{professor.email}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{professor.email}" style="width:100%" required="true" >
-							<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
+							<p:inputText value="#{professor.email}" style="width:100%"
+								required="true">
+								<f:validateRegex
+									pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
 							</p:inputText>
 						</f:facet>
 					</p:cellEditor>
@@ -78,12 +85,15 @@
 						<p:commandButton value="No" type="button"
 							styleClass="ui-confirmdialog-no" icon="pi pi-times" />
 					</p:confirmDialog>
+
+					<p:commandButton value="Details"
+						action="#{professorController.redirectToProfessorDetails(professor)}">
+					</p:commandButton>
 				</p:column>
 
 				<p:column style="width:35px">
 					<p:rowEditor />
 				</p:column>
-
 
 			</p:dataTable>
 			<br />
